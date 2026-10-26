@@ -121,11 +121,21 @@
   .poster.gen::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.03) 0 1px,transparent 1px 4px)}
   .poster.gen b{position:relative;font-family:var(--display);font-weight:400;font-size:clamp(40px,6vw,72px);line-height:.9;text-transform:uppercase;color:rgba(237,232,223,.9);max-width:90%}
 
-  /* Marquee */
-  .marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;padding:22px 0;white-space:nowrap}
-  .marquee-track{display:inline-flex;gap:48px;animation:scroll 40s linear infinite;font-family:var(--display);font-size:clamp(32px,5vw,56px);text-transform:uppercase}
-  .marquee-track span:nth-child(even){color:var(--accent)}
-  @keyframes scroll{to{transform:translateX(-50%)}}
+  /* Film strip */
+  .filmstrip{overflow:hidden;padding:40px 0}
+  .filmstrip-inner{--h:clamp(130px,16vw,200px);position:relative;width:110%;margin-left:-5%;transform:rotate(-2deg);background:#050505;padding:28px 0;box-shadow:0 20px 50px rgba(0,0,0,.6)}
+  .filmstrip-inner::before,.filmstrip-inner::after{content:"";position:absolute;left:0;right:0;height:12px;z-index:2;
+    background:radial-gradient(circle at center,transparent 0,transparent 0) ,
+      repeating-linear-gradient(90deg,transparent 0 10px,#d9d3c7 10px 24px,transparent 24px 34px);
+    -webkit-mask:linear-gradient(#000,#000);border-radius:2px;opacity:.85}
+  .filmstrip-inner::before{top:8px}.filmstrip-inner::after{bottom:8px}
+  .filmstrip-track{display:flex;gap:10px;width:max-content;animation:roll 50s linear infinite}
+  .filmstrip:hover .filmstrip-track{animation-play-state:paused}
+  .frame{position:relative;height:var(--h);aspect-ratio:3/2;flex:none;overflow:hidden;border-radius:3px;background:var(--bg-2)}
+  .frame .poster{position:absolute;inset:0;filter:sepia(.25) saturate(.9) contrast(1.05)}
+  .frame .poster.gen b{font-size:clamp(20px,2.6vw,34px)}
+  .frame i{position:absolute;top:6px;right:8px;z-index:2;font-style:normal;font-family:var(--mono);font-size:10px;color:var(--accent);letter-spacing:.1em}
+  @keyframes roll{to{transform:translateX(-50%)}}
 
   /* About */
   .about{display:grid;grid-template-columns:1fr 1.3fr;gap:64px}
@@ -221,8 +231,8 @@
   <div class="featured" id="featured"></div>
 </section>
 
-<div class="marquee" aria-hidden="true">
-  <div class="marquee-track" id="marquee"></div>
+<div class="filmstrip" aria-hidden="true">
+  <div class="filmstrip-inner"><div class="filmstrip-track" id="filmstrip"></div></div>
 </div>
 
 <section>
@@ -436,9 +446,11 @@ $("#filters").addEventListener("click", e => {
   document.querySelectorAll(".card").forEach(c => c.classList.toggle("hide", b.dataset.f !== "All" && c.dataset.type !== b.dataset.f));
 });
 
-// Marquee
-const words = ["Video","Photography","Film","Television","Producing","Storytelling"];
-$("#marquee").innerHTML = [...words, ...words].map(w => `<span>${w}</span><span>&#10022;</span>`).join("");
+// Film strip (frames built from your projects)
+let reel = [];
+while (reel.length < 12) reel = reel.concat(PROJECTS.map((p,i) => [p,i]));
+$("#filmstrip").innerHTML = [...reel, ...reel].map(([p,i],n) =>
+  `<div class="frame"><i>${String((n % reel.length) + 1).padStart(2,"0")}A</i>${poster(p, i)}</div>`).join("");
 
 // Modal
 const modal = $("#modal");
