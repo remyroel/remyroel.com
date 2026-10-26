@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Remy Roel | Film, TV & Digital Video</title>
-<meta name="description" content="Portfolio of Remy Roel: film, television and digital video projects from New York City.">
-<meta property="og:title" content="Remy Roel | Film, TV & Digital Video">
-<meta property="og:description" content="Selected film, television and digital video work.">
+<title>Remy Roel | Video & Photo</title>
+<meta name="description" content="Portfolio of Remy Roel: video and photography from New York City.">
+<meta property="og:title" content="Remy Roel | Video & Photo">
+<meta property="og:description" content="Selected video and photography work.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://remyroel.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -130,7 +130,8 @@
   /* About */
   .about{display:grid;grid-template-columns:1fr 1.3fr;gap:64px}
   .about-photo{aspect-ratio:4/5;border-radius:4px;overflow:hidden;background:var(--bg-2);position:relative}
-  .about-photo img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05)}
+  .about-photo img{position:relative;z-index:1;width:100%;height:100%;object-fit:cover;object-position:center 30%;filter:grayscale(1) contrast(1.05);transition:filter .6s}
+  .about-photo:hover img{filter:none}
   .about-photo .ph{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--mono);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.14em;border:1px dashed var(--line)}
   .about-text .lead{font-size:clamp(22px,2.4vw,32px);line-height:1.35;font-weight:300;margin-bottom:28px}
   .about-text .lead em{font-style:normal;color:var(--accent)}
@@ -161,6 +162,8 @@
   .modal-video{aspect-ratio:16/9;background:#000;border-radius:6px;overflow:hidden;position:relative;margin-bottom:40px}
   .modal-video iframe,.modal-video video{width:100%;height:100%;border:0}
   .modal-video .poster{position:absolute;inset:0}
+  .gallery{columns:3 260px;column-gap:16px;margin-bottom:40px}
+  .gallery img{width:100%;margin-bottom:16px;border-radius:4px;break-inside:avoid}
   .modal-body{display:grid;grid-template-columns:1.5fr 1fr;gap:48px}
   .modal-body h2{font-family:var(--display);font-weight:400;font-size:clamp(40px,6vw,80px);line-height:.95;text-transform:uppercase;margin-bottom:20px}
   .modal-body p{color:#cfc9bf;margin-bottom:16px}
@@ -202,7 +205,7 @@
       <span class="line"><span>Roel</span></span>
     </h1>
     <div class="hero-sub">
-      <p>Film, television and digital video. Stories built for the big screen, the small screen and the one in your pocket.</p>
+      <p>Video and photography. Stories built for the big screen, the small screen and the one in your pocket.</p>
       <a href="#work" class="btn solid">View the work &darr;</a>
     </div>
   </div>
@@ -247,7 +250,7 @@
       <div class="ph">Your headshot here</div>
     </div>
     <div class="about-text">
-      <p class="lead">I'm Remy, a New York based producer and digital storyteller working where <em>film, television and technology</em> meet.</p>
+      <p class="lead">I'm Remy, a New York based producer and digital storyteller working where <em>video, photography and technology</em> meet.</p>
       <p>I studied Computer Science, then found my way to the other side of the screen. That mix shapes how I work: I think about the story first, and about how it will actually reach people second, whether that's a broadcast slot, a streaming page or a vertical feed.</p>
       <p>Right now I lead digital content and marketing at SCRUMMY, a fantasy rugby app, where I develop video series, shoot in the field and run social and email for a growing audience.</p>
       <div class="skills">
@@ -271,7 +274,7 @@
 <section class="contact" id="contact">
   <div class="sec-label">04 / Contact</div>
   <!-- EDIT: your email -->
-  <a class="big" href="mailto:hello@remyroel.com">hello@remyroel.com</a>
+  <a class="big" href="mailto:remyroel106@gmail.com">remyroel106@gmail.com</a>
   <div class="socials">
     <!-- EDIT: your links -->
     <a href="https://www.linkedin.com/in/" target="_blank" rel="noopener">LinkedIn</a>
@@ -296,53 +299,50 @@
    YOUR PROJECTS  -  edit this list, everything on the page builds from it
    ---------------------------------------------------------------------
    title     : project name
-   type      : "Film", "TV", "Digital" or "Commercial" (drives the filter buttons)
+   type      : "Video" or "Photo" (these are the filter buttons)
    role      : what you did on it
    year      : year
-   network   : studio / network / platform (optional)
+   network   : client / network / platform (optional)
    summary   : one or two sentences
-   video     : YouTube or Vimeo link, or a path to an .mp4 (optional)
-   image     : poster/still in /assets, e.g. "assets/my-film.jpg" (optional,
-               a styled title card is generated if you leave it blank)
+   video     : (Video) YouTube or Vimeo link, or a path to an .mp4
+   photos    : (Photo) list of images in /assets, e.g. ["assets/rugby-1.jpg","assets/rugby-2.jpg"]
+   image     : cover image in /assets (optional; for Photo projects the first
+               photo is used if this is blank, otherwise a title card is generated)
    link      : external link like IMDb or an article (optional)
    featured  : true on ONE project to make it the big "Now Showing" piece
    ===================================================================== */
 const PROJECTS = [
   {
     title: "Featured Project",
-    type: "Film",
+    type: "Video",
     role: "Producer",
     year: "2026",
     network: "Studio / Festival",
     summary: "Placeholder for your headline film or TV project. Two or three sentences on what it is, what you did and why it matters.",
-    video: "",
-    image: "",
-    link: "",
+    video: "", image: "", link: "",
     featured: true
   },
   {
     title: "TK's Takes",
-    type: "Digital",
+    type: "Video",
     role: "Series development & marketing",
     year: "2026",
     network: "SCRUMMY",
     summary: "A twice-weekly selfie-style rugby opinion series hosted by TK: a weekend recap and a look-ahead, plus a Schools Recap spotlighting young players and monthly casual interviews with rugby stars.",
-    video: "",
-    image: "",
-    link: ""
+    video: "", image: "", link: ""
   },
   {
-    title: "TV Project",
-    type: "TV",
+    title: "Video Project",
+    type: "Video",
     role: "Associate Producer",
     year: "2025",
     network: "Network",
-    summary: "Placeholder for a television credit.",
+    summary: "Placeholder for a TV or video credit.",
     video: "", image: "", link: ""
   },
   {
     title: "Short Film",
-    type: "Film",
+    type: "Video",
     role: "Writer / Director",
     year: "2024",
     network: "Festival",
@@ -350,22 +350,22 @@ const PROJECTS = [
     video: "", image: "", link: ""
   },
   {
-    title: "Another Project",
-    type: "TV",
-    role: "Editor",
-    year: "2024",
-    network: "Platform",
-    summary: "Placeholder for another credit.",
-    video: "", image: "", link: ""
-  },
-  {
-    title: "Field Footage",
-    type: "Digital",
-    role: "Shooter & Photographer",
+    title: "Rugby Matchday",
+    type: "Photo",
+    role: "Photographer",
     year: "2025",
     network: "SCRUMMY",
-    summary: "Field photography and video at live rugby matches for social and the app.",
-    video: "", image: "", link: ""
+    summary: "Field photography at live rugby matches for social and the app.",
+    photos: [], image: "", link: ""
+  },
+  {
+    title: "Photo Series",
+    type: "Photo",
+    role: "Photographer",
+    year: "2025",
+    network: "",
+    summary: "Placeholder for a photo series: events, portraits, behind the scenes.",
+    photos: [], image: "", link: ""
   }
 ];
 
@@ -375,7 +375,8 @@ const $ = s => document.querySelector(s);
 const esc = s => String(s||"").replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
 function poster(p, i){
-  if (p.image) return `<div class="poster" style="background-image:url('${esc(p.image)}')"></div>`;
+  const img = p.image || (p.photos && p.photos[0]);
+  if (img) return `<div class="poster" style="background-image:url('${esc(img)}')"></div>`;
   const [c1,c2] = PALETTES[i % PALETTES.length];
   return `<div class="poster gen" style="--c1:${c1};--c2:${c2}"><b>${esc(p.title)}</b></div>`;
 }
@@ -411,7 +412,7 @@ $("#featured").innerHTML = `
     <h3>${esc(F.title)}</h3>
     <p>${esc(F.summary)}</p>
     ${metaList(F)}
-    <button class="btn" data-i="${fIdx}">${F.video ? "Watch &rarr;" : "Details &rarr;"}</button>
+    <button class="btn" data-i="${fIdx}">${F.video ? "Watch &rarr;" : F.type === "Photo" ? "View photos &rarr;" : "Details &rarr;"}</button>
   </div>`;
 
 // Grid
@@ -436,7 +437,7 @@ $("#filters").addEventListener("click", e => {
 });
 
 // Marquee
-const words = ["Film","Television","Digital Series","Producing","Storytelling","Post Production"];
+const words = ["Video","Photography","Film","Television","Producing","Storytelling"];
 $("#marquee").innerHTML = [...words, ...words].map(w => `<span>${w}</span><span>&#10022;</span>`).join("");
 
 // Modal
@@ -444,7 +445,7 @@ const modal = $("#modal");
 function openModal(i){
   const p = PROJECTS[i], v = embed(p.video);
   $("#modalInner").innerHTML = `
-    <div class="modal-video">${v || poster(p, i)}</div>
+    ${p.photos && p.photos.length ? `<div class="gallery">${p.photos.map(src => `<img src="${esc(src)}" alt="${esc(p.title)}" loading="lazy">`).join("")}</div>` : `<div class="modal-video">${v || poster(p, i)}</div>`}
     <div class="modal-body">
       <div><div class="sec-label">${esc(p.type)} &middot; ${esc(p.year)}</div><h2>${esc(p.title)}</h2><p>${esc(p.summary)}</p></div>
       <div>${metaList(p)}${p.link ? `<div class="modal-links"><a class="btn" href="${esc(p.link)}" target="_blank" rel="noopener">More &nearr;</a></div>` : ""}</div>
