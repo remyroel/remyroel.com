@@ -138,7 +138,8 @@
   @keyframes roll{to{transform:translateX(-50%)}}
 
   /* About */
-  .about{display:grid;grid-template-columns:1fr 1.3fr;gap:64px}
+  .about{display:flex;justify-content:center}
+  .about-photo{width:min(100%,460px)}
   .about-photo{aspect-ratio:4/5;border-radius:4px;overflow:hidden;background:var(--bg-2);position:relative}
   .about-photo img{position:relative;z-index:1;width:100%;height:100%;object-fit:cover;object-position:center 30%}
   .about-photo .ph{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--mono);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.14em;border:1px dashed var(--line)}
@@ -258,25 +259,6 @@
       <img src="assets/headshot.jpg" alt="Remy Roel" onerror="this.remove()">
       <div class="ph">Your headshot here</div>
     </div>
-    <div class="about-text">
-      <p class="lead">I'm Remy, a New York based producer and digital storyteller working where <em>video, photography and technology</em> meet.</p>
-      <p>I studied Computer Science, then found my way to the other side of the screen. That mix shapes how I work: I think about the story first, and about how it will actually reach people second, whether that's a broadcast slot, a streaming page or a vertical feed.</p>
-      <p>Right now I lead digital content and marketing at SCRUMMY, a fantasy rugby app, where I develop video series, shoot in the field and run social and email for a growing audience.</p>
-      <div class="skills">
-        <div>
-          <h4>Production</h4>
-          <ul><li>Producing</li><li>Series development</li><li>Field shooting</li><li>Photography</li></ul>
-        </div>
-        <div>
-          <h4>Post</h4>
-          <ul><li>Final Cut Pro</li><li>Editing for social</li><li>Graphics & thumbnails</li></ul>
-        </div>
-        <div>
-          <h4>Digital</h4>
-          <ul><li>Social strategy</li><li>Email & newsletters</li><li>Web & app (Swift, React Native)</li></ul>
-        </div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -287,9 +269,7 @@
   <div class="socials">
     <!-- EDIT: your links -->
     <a href="https://www.linkedin.com/in/" target="_blank" rel="noopener">LinkedIn</a>
-    <a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
     <a href="https://vimeo.com/" target="_blank" rel="noopener">Vimeo</a>
-    <a href="assets/Remy-Roel-Resume.pdf" target="_blank">Resume</a>
   </div>
 </section>
 
@@ -322,12 +302,12 @@
    ===================================================================== */
 const PROJECTS = [
   {
-    title: "KINNIK 02",
+    title: "What We Do in the Sun",
     type: "Video",
-    role: "Producer",
+    role: "Sound",
     year: "2026",
-    network: "",
-    summary: "Placeholder: two or three sentences on what KINNIK 02 is, what you did and why it matters.",
+    network: "KINNIK",
+    summary: "",
     video: "", image: "", link: "",
     featured: true
   },
@@ -337,8 +317,8 @@ const PROJECTS = [
     role: "Photographer",
     year: "2026",
     network: "",
-    summary: "Photography from the MLR Finals.",
-    photos: [], image: "", link: ""
+    summary: "",
+    photos: [], image: "assets/MLR_2.jpg", link: ""
   },
   {
     title: "Drew: The Painter",
@@ -346,44 +326,8 @@ const PROJECTS = [
     role: "Director",
     year: "2025",
     network: "",
-    summary: "Placeholder: a sentence or two about the film.",
+    summary: "",
     video: "", image: "", link: ""
-  },
-  {
-    title: "Video Project",
-    type: "Video",
-    role: "Associate Producer",
-    year: "2025",
-    network: "Network",
-    summary: "Placeholder for a TV or video credit.",
-    video: "", image: "", link: ""
-  },
-  {
-    title: "Short Film",
-    type: "Video",
-    role: "Writer / Director",
-    year: "2024",
-    network: "Festival",
-    summary: "Placeholder for a short film.",
-    video: "", image: "", link: ""
-  },
-  {
-    title: "Rugby Matchday",
-    type: "Photo",
-    role: "Photographer",
-    year: "2025",
-    network: "SCRUMMY",
-    summary: "Field photography at live rugby matches for social and the app.",
-    photos: [], image: "", link: ""
-  },
-  {
-    title: "Photo Series",
-    type: "Photo",
-    role: "Photographer",
-    year: "2025",
-    network: "",
-    summary: "Placeholder for a photo series: events, portraits, behind the scenes.",
-    photos: [], image: "", link: ""
   }
 ];
 
@@ -428,7 +372,7 @@ $("#featured").innerHTML = `
   <div class="featured-info">
     <div class="sec-label">${esc(F.type)} &middot; ${esc(F.year)}</div>
     <h3>${esc(F.title)}</h3>
-    <p>${esc(F.summary)}</p>
+    ${F.summary ? `<p>${esc(F.summary)}</p>` : ""}
     ${metaList(F)}
     <button class="btn" data-i="${fIdx}">${F.video ? "Watch &rarr;" : F.type === "Photo" ? "View photos &rarr;" : "Details &rarr;"}</button>
   </div>`;
@@ -467,7 +411,7 @@ function openModal(i){
   $("#modalInner").innerHTML = `
     ${p.photos && p.photos.length ? `<div class="gallery">${p.photos.map(src => `<img src="${esc(src)}" alt="${esc(p.title)}" loading="lazy">`).join("")}</div>` : `<div class="modal-video">${v || poster(p, i)}</div>`}
     <div class="modal-body">
-      <div><div class="sec-label">${esc(p.type)} &middot; ${esc(p.year)}</div><h2>${esc(p.title)}</h2><p>${esc(p.summary)}</p></div>
+      <div><div class="sec-label">${esc(p.type)} &middot; ${esc(p.year)}</div><h2>${esc(p.title)}</h2>${p.summary ? `<p>${esc(p.summary)}</p>` : ""}</div>
       <div>${metaList(p)}${p.link ? `<div class="modal-links"><a class="btn" href="${esc(p.link)}" target="_blank" rel="noopener">More &nearr;</a></div>` : ""}</div>
     </div>`;
   modal.classList.add("open");
